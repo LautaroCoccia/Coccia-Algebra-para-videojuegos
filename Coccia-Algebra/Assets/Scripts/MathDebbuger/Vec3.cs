@@ -131,8 +131,8 @@ namespace CustomMath
         public static float Angle(Vec3 from, Vec3 to)
         {
             float dot = Dot(from, to);
-            float magFrom = Magnitude(from);
-            float magTo = Magnitude(to);
+            float magFrom = SqrMagnitude(from);
+            float magTo = SqrMagnitude(to);
             float aux = Mathf.Sqrt( magFrom * magTo);
             float aux2 = dot / aux;
             float rad = (float)Mathf.Acos(aux2);
@@ -145,8 +145,9 @@ namespace CustomMath
         }
         public static float Magnitude(Vec3 vector)
         {
-            float mag =(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
-            return mag;
+            float answ = (vector.x * vector.x) + (vector.y * vector.y) + (vector.z * vector.z);
+
+            return Mathf.Sqrt(answ);
         }
         public static Vec3 Cross(Vec3 a, Vec3 b)
         {
@@ -162,33 +163,7 @@ namespace CustomMath
         }
         public static Vec3 Lerp(Vec3 a, Vec3 b, float t)
         {
-            if(a.x > b.x)
-            {
-                a.x -= t * Time.deltaTime; 
-            }
-            else if (a.x < b.x)
-            {
-                a.x += t * Time.deltaTime;
-
-            }
-            if (a.y > b.y)
-            {
-                a.y -= t * Time.deltaTime;
-            }
-            else if (a.y < b.y)
-            {
-                a.y += t * Time.deltaTime;
-
-            }
-            if (a.z > b.z)
-            {
-                a.z -= t * Time.deltaTime;
-            }
-            else if (a.z < b.z)
-            {
-                a.z += t * Time.deltaTime;
-
-            }
+            a = a + (b - a) * t;
 
             return a;
         }
@@ -206,9 +181,9 @@ namespace CustomMath
         }
         public static float SqrMagnitude(Vec3 vector)
         {
-            float answ = (vector.x * vector.x) + (vector.y * vector.y) + (vector.z * vector.z);
-
-            return Mathf.Sqrt(answ);
+            float mag = (vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
+            return mag;
+            
         }
         public static Vec3 Project(Vec3 vector, Vec3 onNormal) 
         {

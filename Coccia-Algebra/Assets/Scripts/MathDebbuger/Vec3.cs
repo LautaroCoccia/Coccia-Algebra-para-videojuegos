@@ -133,8 +133,11 @@ namespace CustomMath
             float dot = Dot(from, to);
             float magFrom = Magnitude(from);
             float magTo = Magnitude(to);
-            float cos = (float)Math.Cos(dot / (magFrom * magTo));
-            return cos;
+            float aux = Mathf.Sqrt( magFrom * magTo);
+            float aux2 = dot / aux;
+            float rad = (float)Mathf.Acos(aux2);
+            float acos = Mathf.Rad2Deg * rad;
+            return acos;
         }
         public static Vec3 ClampMagnitude(Vec3 vector, float maxLength)
         {
@@ -142,7 +145,7 @@ namespace CustomMath
         }
         public static float Magnitude(Vec3 vector)
         {
-            float mag = Mathf.Sqrt(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
+            float mag =(vector.x * vector.x + vector.y * vector.y + vector.z * vector.z);
             return mag;
         }
         public static Vec3 Cross(Vec3 a, Vec3 b)
@@ -155,7 +158,7 @@ namespace CustomMath
         }
         public static float Dot(Vec3 a, Vec3 b)
         {
-            return ( (a.x) * (b.x) + (a.y) * (b.y) + 0 );
+            return ( (a.x * b.x) + (a.y * b.y) + (a.z * b.z) );
         }
         public static Vec3 Lerp(Vec3 a, Vec3 b, float t)
         {
